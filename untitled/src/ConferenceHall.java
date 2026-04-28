@@ -7,7 +7,7 @@ public class ConferenceHall extends Venue{
     }
 
     public void sethasSoundSystem(boolean hasSmartBoard) {
-        this.hasSoundSystem = hasSmartBoard;
+        this.hasSoundSystem = hasSoundSystem;
     }
 
     public boolean gethasSoundSystem(){

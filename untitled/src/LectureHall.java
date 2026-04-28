@@ -6,11 +6,11 @@ public class LectureHall extends Venue{
         this.hasSmartBoard=hasSmartBoard;
     }
 
-    public void sethasSmartBoard(boolean hasSmartBoard) {
+    public void setHasSmartBoard(boolean hasSmartBoard) {
         this.hasSmartBoard = hasSmartBoard;
     }
 
-    public boolean gethasSmartBoarde(){
+    public boolean isHasSmartBoard(){
         return this.hasSmartBoard;
     }
 
@@ -24,6 +24,6 @@ public class LectureHall extends Venue{
         System.out.println("Venue name: " + getVenueName());
         System.out.println("Venue type: " + getVenueType());
         System.out.println("Max capacity: " + getMaxCapacity());
-        System.out.println("hasSmartBoard: "+gethasSmartBoarde());
+        System.out.println("hasSmartBoard: "+isHasSmartBoard());
     }
 }

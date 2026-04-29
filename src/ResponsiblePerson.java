@@ -16,7 +16,7 @@ public class ResponsiblePerson {
     }
 
     public void printDetails() {
-        System.out.println("Responsible Person: " + name);
-        System.out.println("Email: " + email);
+        System.out.println("Responsible Person: " + getName());
+        System.out.println("Email: " + getEmail());
     }
 }

@@ -11,8 +11,13 @@ public class Department {
         this.name = name;
     }
 
-    public String getName() {
+    public String getDepartmentName() {
         return name;
+    }
+
+    public void printDetails(){
+        System.out.println("Department name: "+getDepartmentName());
+        System.out.println("responsible Person: "+responsiblePerson.getName());
     }
 
 

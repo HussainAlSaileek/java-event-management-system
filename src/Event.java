@@ -54,7 +54,7 @@ public abstract class Event {
     //Fixed//
     public void printDetails() {
         System.out.println("Name: " + eventName);
-        System.out.println("Sponsoring department: " + sponsorDepartment.getName());
+        System.out.println("Sponsoring department: " + sponsorDepartment.getDepartmentName());
         System.out.println("Venue: " + venue.getVenueName());
         System.out.println("Time: " + startDateTime);
     }

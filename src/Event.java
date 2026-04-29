@@ -51,9 +51,10 @@ public abstract class Event {
     }
 
     /* FIXME: getSponsorDepartmentName() & getVenueName() are not implemented */
+    //Fixed//
     public void printDetails() {
         System.out.println("Name: " + eventName);
-        System.out.println("Sponsoring department: " + sponsorDepartment.getSponsorDepartmentName());
+        System.out.println("Sponsoring department: " + sponsorDepartment.getName());
         System.out.println("Venue: " + venue.getVenueName());
         System.out.println("Time: " + startDateTime);
     }

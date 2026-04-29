@@ -1,9 +1,10 @@
 public class Department {
     private String name;
-    private String email;
-    public Department(String name, String email){
+    private ResponsiblePerson responsiblePerson;
+
+    public Department(String name,ResponsiblePerson responsiblePerson){
         this.name=name;
-        this.email=email;
+        this.responsiblePerson=responsiblePerson;
     }
 
     public void setName(String name) {
@@ -14,11 +15,5 @@ public class Department {
         return name;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
-    public String getEmail() {
-        return email;
-    }
 }

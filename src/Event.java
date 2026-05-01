@@ -7,7 +7,7 @@ public abstract class Event {
     protected Venue venue;
     protected Department sponsorDepartment;
     protected int neededCapacity;
-    protected final String eventType;
+    protected String eventType;
 
 
 
@@ -43,6 +43,10 @@ public abstract class Event {
         return eventType;
     }
 
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
     public boolean checkOverlap(Event other) {
         if (this.startDateTime.isBefore(other.endDateTime)
                 && this.endDateTime.isAfter(other.startDateTime)) {
@@ -50,8 +54,7 @@ public abstract class Event {
         else {return false;}
     }
 
-    /* FIXME: getSponsorDepartmentName() & getVenueName() are not implemented */
-    //Fixed//
+
     public void printDetails() {
         System.out.println("Name: " + eventName);
         System.out.println("Sponsoring department: " + sponsorDepartment.getDepartmentName());

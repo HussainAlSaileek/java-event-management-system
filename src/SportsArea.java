@@ -25,7 +25,7 @@ public class SportsArea extends Venue{
         System.out.println("Venue name: " + getVenueName());
         System.out.println("Venue type: " + getVenueType());
         System.out.println("Max capacity: " + getMaxCapacity());
-        System.out.println("Sport type: " + sportType);
+        System.out.println("Sport type: " + getSportType());
     }
 
 

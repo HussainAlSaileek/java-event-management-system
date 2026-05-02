@@ -5,7 +5,7 @@ public class DepartmentManager {
 
     public boolean departmentExists(String name) {
         for (Department department : departments) {
-            if (department.getDepartmentName().equalsIgnoreCase(name)) {
+            if (department.getDepartmentName().equals(name)) {
                 return true;
             }
         }

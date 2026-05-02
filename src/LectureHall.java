@@ -6,6 +6,8 @@ public class LectureHall extends Venue{
         this.hasSmartBoard=hasSmartBoard;
     }
 
+
+
     public void sethasSmartBoard(boolean hasSmartBoard) {
         this.hasSmartBoard = hasSmartBoard;
     }

@@ -89,7 +89,7 @@ public class VenueManager {
         }
         return true;
     }
-
+    //to find free venue at specific time//
     public ArrayList<Venue> getAvailableVenues(LocalDateTime start,
                                                LocalDateTime end,
                                                int neededCapacity,
@@ -99,6 +99,7 @@ public class VenueManager {
 
         for (Venue venue : venues) {
             if (!isVenueCompatible(eventType, venue)) {
+                //skip//
                 continue;
             }
 

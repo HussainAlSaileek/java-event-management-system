@@ -5,7 +5,7 @@ public class VenueManager {
 
     public boolean venueExists(String name) {
         for (Venue venue : venues) {
-            if (venue.getVenueName().equals(name)) {
+            if (venue.getVenueName().equalsIgnoreCase(name)) {
                 return true;
             }
         }
@@ -35,7 +35,7 @@ public class VenueManager {
     public Venue searchVenue(String name){
 
         for (Venue venue : venues) {
-            if (venue.getVenueName().equals(name) ){
+            if (venue.getVenueName().equalsIgnoreCase(name) ){
                 return venue;
             }
         }
@@ -69,6 +69,7 @@ public class VenueManager {
                 return false;
             }
         }
+        //add checkMaxCapacity//
 
 
     }

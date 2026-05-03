@@ -33,7 +33,7 @@ public class DepartmentManager {
 
     public Department searchDepartment(String name) {
         for (Department department : departments) {
-            if (department.getDepartmentName().equals(name)) {
+            if (department.getDepartmentName().equalsIgnoreCase(name)) {
                 return department;
             }
         }

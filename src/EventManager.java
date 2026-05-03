@@ -46,7 +46,7 @@ public class EventManager {
                 continue;
             }
 
-            if (neededCapacity > venue.getMaxCapacity()) {
+            if (neededCapacity >= venue.getMaxCapacity()) {
                 continue;
             }
 
@@ -58,6 +58,7 @@ public class EventManager {
         return availableVenues;
     }
 
+    /*  */
     public ArrayList<Venue> getAvailableVenuesByCapacity(int neededCapacity, ArrayList<Venue> allVenues) {
         ArrayList<Venue> availableVenues = new ArrayList<>();
 
@@ -83,7 +84,7 @@ public class EventManager {
             }
 
             if (isVenueFree(venue, start, end)
-                    && venue.getMaxCapacity() > maxCapacity) {
+                    && venue.getMaxCapacity() >= maxCapacity) {
                 maxCapacity = venue.getMaxCapacity();
             }
         }

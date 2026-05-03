@@ -3,6 +3,10 @@ import java.util.ArrayList;
 public class VenueManager {
     private ArrayList<Venue> venues = new ArrayList<>();
 
+    public ArrayList<Venue> getVenues() {
+        return venues;
+    }
+
     public boolean venueExists(String name) {
         for (Venue venue : venues) {
             if (venue.getVenueName().equals(name)) {

@@ -103,7 +103,7 @@ public class EventMenu {
                 eventType = "Sport";
             }
 
-            System.out.println("Enter the event name");
+            System.out.println("Enter the event name: ");
             String eventName = scnr.nextLine();
 
             LocalDateTime[] dateTimes = getStartAndEndDateTime();

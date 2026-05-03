@@ -16,7 +16,7 @@ public class Main {
         DepartmentMenu departmentMenu = new DepartmentMenu(departmentManager, scnr);
 
         // Initialize default data
-        venueMenu.setVenueList(venueManager);
+        venueMenu.setVenueList();
         departmentMenu.setDepartmentList();
 
         // Main menu

@@ -11,15 +11,18 @@ public class VenueMenu {
     }
 
 
-    public void setVenueList(VenueManager venueList) {
+    public void setVenueList() {
         Venue v1=new SportsArea("feild 1",90,"Football");
         Venue v2=new LectureHall("room:1001",120,true);
         Venue v3=new ConferenceHall("Hall A",70,true);
         Venue v4=new PublicSpace("the stadium",750);
+        Venue v5=new LectureHall("room:500",45,false);
         venueManager.addVenue(v1);
         venueManager.addVenue(v2);
         venueManager.addVenue(v3);
         venueManager.addVenue(v4);
+        venueManager.addVenue(v5);
+
     }
 
     private int readInt() {
@@ -58,13 +61,13 @@ public class VenueMenu {
                 if (venue == null) {
                     System.out.println("Venue not found");
                 } else {
-                    System.out.println("Venue "+ venue.getVenueName()+" was founded");
+                    System.out.println("Venue "+ venue.getVenueName()+" was found");
                 }
             }
             else if (choice == 4){
                 System.out.println("Enter venue name:");
                 String name = scnr.nextLine();
-                venueManager.showVenuDetails(name);
+                venueManager.showVenueDetails(name);
             }
 
             else if (choice == 5){

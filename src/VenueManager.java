@@ -55,7 +55,7 @@ public class VenueManager {
             return null;
         }
 
-        public void showVenuDetails(String name){
+        public void showVenueDetails(String name){
         Venue venue=searchVenue(name);
         if (venue!=null){
             venue.printDetails();

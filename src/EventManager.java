@@ -11,85 +11,15 @@ public class EventManager {
         return events;
     }
 
-    private boolean isVenueFree(Venue venue, LocalDateTime start, LocalDateTime end) {
-        for (Event event : events) {
-            boolean sameVenue = false;
-            if (event.getVenue().getVenueName()
-                    .equalsIgnoreCase(venue.getVenueName())) {
-                sameVenue = true;
-            }
 
-            boolean overlaps = false;
-            if (start.isBefore(event.getEndDateTime())
-                    && end.isAfter(event.getStartDateTime())) {
-                overlaps = true;
-            }
+    private VenueManager venueManager;
 
-            if (sameVenue && overlaps) {
-                return false;
-            }
-        }
-
-        return true;
+    public EventManager(VenueManager venueManager) {
+        this.venueManager = venueManager;
     }
 
 
-    public ArrayList<Venue> getAvailableVenues(LocalDateTime start,
-                                               LocalDateTime end,
-                                               int neededCapacity,
-                                               String eventType,
-                                               ArrayList<Venue> allVenues) {
-        ArrayList<Venue> availableVenues = new ArrayList<>();
 
-        for (Venue venue : allVenues) {
-            if (!isVenueCompatible(eventType, venue)) {
-                continue;
-            }
-
-            if (neededCapacity > venue.getMaxCapacity()) {
-                continue;
-            }
-
-            if (isVenueFree(venue, start, end)) {
-                availableVenues.add(venue);
-            }
-        }
-
-        return availableVenues;
-    }
-
-    public ArrayList<Venue> getAvailableVenuesByCapacity(int neededCapacity, ArrayList<Venue> allVenues) {
-        ArrayList<Venue> availableVenues = new ArrayList<>();
-
-        for (Venue venue: allVenues) {
-
-
-            if (venue.getMaxCapacity() >= neededCapacity) {
-                availableVenues.add(venue);
-            }
-        }
-        return availableVenues;
-    }
-
-    public int maxCapacityByTime(LocalDateTime start,
-                                 LocalDateTime end,
-                                 String eventType,
-                                 ArrayList<Venue> allVenues) {
-        int maxCapacity = 0;
-
-        for (Venue venue : allVenues) {
-            if (!isVenueCompatible(eventType, venue)) {
-                continue;
-            }
-
-            if (isVenueFree(venue, start, end)
-                    && venue.getMaxCapacity() > maxCapacity) {
-                maxCapacity = venue.getMaxCapacity();
-            }
-        }
-
-        return maxCapacity;
-    }
 
     public boolean addEvent(Event newEvent) {
         if (!newEvent.getEndDateTime().isAfter(newEvent.getStartDateTime())) {
@@ -97,7 +27,7 @@ public class EventManager {
             return false;
         }
 
-        if (!isVenueCompatible(newEvent.getEventType(), newEvent.getVenue())) {
+        if (!venueManager.isVenueCompatible(newEvent.getEventType(), newEvent.getVenue())) {
             System.out.println("Error: This venue type is not suitable for this event type");
             return false;
         }
@@ -107,7 +37,7 @@ public class EventManager {
             return false;
         }
 
-        if (!isVenueFree(newEvent.getVenue(), newEvent.getStartDateTime(), newEvent.getEndDateTime())) {
+        if (!venueManager.isVenueFree(newEvent.getVenue(), newEvent.getStartDateTime(), newEvent.getEndDateTime(),events)) {
             System.out.println("Error: Venue is already booked at this time");
             return false;
         }
@@ -178,30 +108,6 @@ public class EventManager {
         }
     }
 
-    private boolean isVenueCompatible(String eventType, Venue venue) {
-        String type = eventType.toLowerCase();
-        String venueType = venue.getVenueType().toLowerCase();
-
-        if (type.equals("sport")) {
-            return venueType.equals("sportsarea");
-        }
-
-        if (type.equals("academic")) {
-            return venueType.equals("lecturehall") || venueType.equals("conferencehall");
-        }
-
-        if (type.equals("religious")) {
-            return venueType.equals("lecturehall")
-                    || venueType.equals("conferencehall")
-                    || venueType.equals("publicspace");
-        }
-
-        if (type.equals("social")) {
-            return venueType.equals("publicspace") || venueType.equals("conferencehall");
-        }
-
-        return false;
-    }
 
 
 }

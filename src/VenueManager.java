@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class VenueManager {
@@ -36,6 +37,13 @@ public class VenueManager {
         }
     }
 
+    public void viewAllTypesOfVenues(){
+        System.out.println("SportsArea");
+        System.out.println("LectureHall");
+        System.out.println("ConferenceHall");
+        System.out.println("PublicSpace");
+    }
+
     public Venue searchVenue(String name){
 
         for (Venue venue : venues) {
@@ -58,28 +66,114 @@ public class VenueManager {
 
         }
 
-        public boolean checkAttendanceValidation(int attendance,Venue venue){
-        if (attendance<=venue.getMaxCapacity()) {
-            if (searchVenue(venue.getVenueName()) != null) {
-                System.out.println("valid attendance");
-                return true;
-            } else {
-                System.out.println("Invalid attendance");
+    public int checkMaxCapacity(){
+        int max=0;
+        for (Venue venue : venues) {
+            if (max< venue.getMaxCapacity()){
+                max= venue.getMaxCapacity();
+            }
+        }
+        return max;
+    }
+
+    public boolean isVenueFree(Venue venue, LocalDateTime start, LocalDateTime end, ArrayList<Event> events) {
+        for (Event event : events) {
+            boolean sameVenue = event.getVenue().getVenueName()
+                    .equalsIgnoreCase(venue.getVenueName());
+
+            boolean overlaps = start.isBefore(event.getEndDateTime())
+                    && end.isAfter(event.getStartDateTime());
+
+            if (sameVenue && overlaps) {
                 return false;
             }
         }
-        else {
-                System.out.println("venue not found" );
-                return false;
+        return true;
+    }
+
+    public ArrayList<Venue> getAvailableVenues(LocalDateTime start,
+                                               LocalDateTime end,
+                                               int neededCapacity,
+                                               String eventType,
+                                               ArrayList<Event> events) {
+        ArrayList<Venue> availableVenues = new ArrayList<>();
+
+        for (Venue venue : venues) {
+            if (!isVenueCompatible(eventType, venue)) {
+                continue;
+            }
+
+            if (neededCapacity > venue.getMaxCapacity()) {
+                continue;
+            }
+
+            if (isVenueFree(venue, start, end, events)) {
+                availableVenues.add(venue);
             }
         }
-        //add checkMaxCapacity//
 
+        return availableVenues;
+    }
 
+    public boolean isVenueCompatible(String eventType, Venue venue) {
+        String type = eventType.toLowerCase();
+        String venueType = venue.getVenueType().toLowerCase();
+
+        if (type.equals("sport")) {
+            return venueType.equals("sportsarea");
+        }
+
+        if (type.equals("academic")) {
+            return venueType.equals("lecturehall") || venueType.equals("conferencehall");
+        }
+
+        if (type.equals("religious")) {
+            return venueType.equals("lecturehall")
+                    || venueType.equals("conferencehall")
+                    || venueType.equals("publicspace");
+        }
+
+        if (type.equals("social")) {
+            return venueType.equals("publicspace") || venueType.equals("conferencehall");
+        }
+
+        return false;
+    }
+
+    public ArrayList<Venue> getAvailableVenuesByCapacity(int neededCapacity) {
+        ArrayList<Venue> availableVenues = new ArrayList<>();
+
+        for (Venue venue: venues) {
+            if (venue.getMaxCapacity() >= neededCapacity) {
+                availableVenues.add(venue);
+            }
+        }
+        return availableVenues;
+    }
+
+    public int maxCapacityByTime(LocalDateTime start,
+                                 LocalDateTime end,
+                                 String eventType,
+                                 ArrayList<Event> events) {
+
+        int maxCapacity = 0;
+
+        for (Venue venue : venues) {
+
+            if (!isVenueCompatible(eventType, venue)) {
+                continue;
+            }
+
+            if (isVenueFree(venue, start, end, events)
+                    && venue.getMaxCapacity() > maxCapacity) {
+
+                maxCapacity = venue.getMaxCapacity();
+            }
+        }
+
+        return maxCapacity;
     }
 
 
 
-
-
-
+}

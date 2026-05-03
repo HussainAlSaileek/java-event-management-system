@@ -11,46 +11,94 @@ public class EventManager {
         return events;
     }
 
+    private boolean isVenueFree(Venue venue, LocalDateTime start, LocalDateTime end) {
+        for (Event event : events) {
+            boolean sameVenue = false;
+            if (event.getVenue().getVenueName()
+                    .equalsIgnoreCase(venue.getVenueName())) {
+                sameVenue = true;
+            }
 
-    public ArrayList<Venue> getAvailableVenues(LocalDateTime start, LocalDateTime end, int neededCapacity, ArrayList<Venue> allVenues) {
+            boolean overlaps = false;
+            if (start.isBefore(event.getEndDateTime())
+                    && end.isAfter(event.getStartDateTime())) {
+                overlaps = true;
+            }
+
+            if (sameVenue && overlaps) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    public ArrayList<Venue> getAvailableVenues(LocalDateTime start,
+                                               LocalDateTime end,
+                                               int neededCapacity,
+                                               String eventType,
+                                               ArrayList<Venue> allVenues) {
         ArrayList<Venue> availableVenues = new ArrayList<>();
 
-
-        for (Venue venue: allVenues) {
-            boolean isAvailable = true;
+        for (Venue venue : allVenues) {
+            if (!isVenueCompatible(eventType, venue)) {
+                continue;
+            }
 
             if (neededCapacity > venue.getMaxCapacity()) {
                 continue;
             }
-            for (Event event : events) {
-                boolean sameVenue = false;
 
-                if (event.getVenue().getVenueName().equalsIgnoreCase(venue.getVenueName())) {
-                    sameVenue = true;
-                }
-
-                if (sameVenue && start.isBefore(event.getEndDateTime()) && end.isAfter(event.getStartDateTime())) {
-                    isAvailable = false;
-                    break;
-                }
-
-
-            }
-
-
-
-            if (isAvailable) {
+            if (isVenueFree(venue, start, end)) {
                 availableVenues.add(venue);
             }
+        }
 
+        return availableVenues;
+    }
+
+    public ArrayList<Venue> getAvailableVenuesByCapacity(int neededCapacity, ArrayList<Venue> allVenues) {
+        ArrayList<Venue> availableVenues = new ArrayList<>();
+
+        for (Venue venue: allVenues) {
+
+
+            if (venue.getMaxCapacity() >= neededCapacity) {
+                availableVenues.add(venue);
+            }
         }
         return availableVenues;
     }
 
-    public boolean addEvent(Event newEvent) {
+    public int maxCapacityByTime(LocalDateTime start,
+                                 LocalDateTime end,
+                                 String eventType,
+                                 ArrayList<Venue> allVenues) {
+        int maxCapacity = 0;
 
+        for (Venue venue : allVenues) {
+            if (!isVenueCompatible(eventType, venue)) {
+                continue;
+            }
+
+            if (isVenueFree(venue, start, end)
+                    && venue.getMaxCapacity() > maxCapacity) {
+                maxCapacity = venue.getMaxCapacity();
+            }
+        }
+
+        return maxCapacity;
+    }
+
+    public boolean addEvent(Event newEvent) {
         if (!newEvent.getEndDateTime().isAfter(newEvent.getStartDateTime())) {
             System.out.println("Error: Start time must be before end time");
+            return false;
+        }
+
+        if (!isVenueCompatible(newEvent.getEventType(), newEvent.getVenue())) {
+            System.out.println("Error: This venue type is not suitable for this event type");
             return false;
         }
 
@@ -59,21 +107,14 @@ public class EventManager {
             return false;
         }
 
-        for (Event event : events) {
-
-            if (event.checkOverlap(newEvent) && event.getVenue().getVenueName().equalsIgnoreCase(newEvent.getVenue().getVenueName())) {
-                System.out.println("Error: Venue is already booked at this time");
-                return false;
-            }
+        if (!isVenueFree(newEvent.getVenue(), newEvent.getStartDateTime(), newEvent.getEndDateTime())) {
+            System.out.println("Error: Venue is already booked at this time");
+            return false;
         }
-
-
-
 
         events.add(newEvent);
         System.out.println("Event added successfully!");
         return true;
-
     }
 
 
@@ -135,6 +176,31 @@ public class EventManager {
         if (!found) {
             System.out.println("No events found for type: " + eventType);
         }
+    }
+
+    private boolean isVenueCompatible(String eventType, Venue venue) {
+        String type = eventType.toLowerCase();
+        String venueType = venue.getVenueType().toLowerCase();
+
+        if (type.equals("sport")) {
+            return venueType.equals("sportsarea");
+        }
+
+        if (type.equals("academic")) {
+            return venueType.equals("lecturehall") || venueType.equals("conferencehall");
+        }
+
+        if (type.equals("religious")) {
+            return venueType.equals("lecturehall")
+                    || venueType.equals("conferencehall")
+                    || venueType.equals("publicspace");
+        }
+
+        if (type.equals("social")) {
+            return venueType.equals("publicspace") || venueType.equals("conferencehall");
+        }
+
+        return false;
     }
 
 

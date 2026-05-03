@@ -316,6 +316,7 @@ public class EventMenu {
     }
 
     /* FIXME: checkMaxCapacity needs implementation */
+    /*Fixed*/
     private int getCapacity() {
         int capacity;
         while (true) {

@@ -22,6 +22,5 @@ public class InputValidator {
         }
     }
 
-   //add isStringValid method//
 
 }

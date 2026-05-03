@@ -25,6 +25,10 @@ public abstract class Venue {
     }
 
     // Abstract methods
-    public abstract void printDetails();
+    public  void printDetails(){
+        System.out.println("Venue name: " + getVenueName());
+        System.out.println("Venue type: " + getVenueType());
+        System.out.println("Max capacity: " + getMaxCapacity());
+    };
     public abstract String getVenueType();
 }

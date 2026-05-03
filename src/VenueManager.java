@@ -73,7 +73,16 @@ public class VenueManager {
                 return false;
             }
         }
-        //add checkMaxCapacity//
+
+    public int checkMaxCapacity(){
+        int max=0;
+        for (Venue venue : venues) {
+            if (max< venue.getMaxCapacity()){
+                max= venue.getMaxCapacity();
+            }
+        }
+        return max;
+    }
 
 
     }

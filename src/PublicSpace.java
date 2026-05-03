@@ -11,8 +11,6 @@ public class PublicSpace extends Venue{
 
     @Override
     public void printDetails(){
-        System.out.println("Venue name: " + getVenueName());
-        System.out.println("Venue type: " + getVenueType());
-        System.out.println("Max capacity: " + getMaxCapacity());
+        super.printDetails();
     }
 }

@@ -315,8 +315,7 @@ public class EventMenu {
         return toDateTime(date + " " + time);
     }
 
-    /* FIXME: checkMaxCapacity needs implementation */
-    /*Fixed*/
+
     private int getCapacity() {
         int capacity;
         while (true) {

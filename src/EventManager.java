@@ -14,6 +14,10 @@ public class EventManager {
 
     private VenueManager venueManager;
 
+    public EventManager(VenueManager venueManager) {
+        this.venueManager = venueManager;
+    }
+
 
 
 

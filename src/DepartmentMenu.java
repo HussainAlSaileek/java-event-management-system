@@ -1,24 +1,73 @@
+import java.util.Scanner;
+
 public class DepartmentMenu {
 
-    DepartmentManager depatrmentList= new DepartmentManager();
+    private final DepartmentManager departmentManager;
+    private final Scanner scnr;
 
+    public DepartmentMenu(DepartmentManager departmentManager, Scanner scnr) {
+        this.departmentManager = departmentManager;
+        this.scnr = scnr;
+    }
 
-    private ResponsiblePerson person1= new ResponsiblePerson("Dr.Ahmed","ahmed@university.edu");
-    private ResponsiblePerson person2= new ResponsiblePerson("Dr.Salem","salem@university.edu");
-    private ResponsiblePerson person3= new ResponsiblePerson("Dr.Ali","ali@university.edu");
-    private ResponsiblePerson person4= new ResponsiblePerson("Dr.Salman","salman@university.edu");
+    public void setDepartmentList() {
+        ResponsiblePerson person1 = new ResponsiblePerson("Dr.Ahmed", "ahmed@university.edu");
+        ResponsiblePerson person2 = new ResponsiblePerson("Dr.Salem", "salem@university.edu");
+        ResponsiblePerson person3 = new ResponsiblePerson("Dr.Ali", "ali@university.edu");
+        ResponsiblePerson person4 = new ResponsiblePerson("Dr.Salman", "salman@university.edu");
 
+        departmentManager.addDepartment(new Department("Math", person1));
+        departmentManager.addDepartment(new Department("Physics", person2));
+        departmentManager.addDepartment(new Department("Coe", person3));
+        departmentManager.addDepartment(new Department("SWE", person4));
+    }
 
-    public void setDepartmentList(VenueManager venueList) {
-        Department d1=new Department("Math",person1);
-        Department d2=new Department("Physics",person2);
-        Department d3=new Department("Coe",person3);
-        Department d4=new Department("SWE",person4);
+    public void start() {
+        while (true) {
+            System.out.println("Department Menu (Select From 1-4)");
+            System.out.println("1. View all departments");
+            System.out.println("2. Search department");
+            System.out.println("3. Show department details");
+            System.out.println("4. Back");
 
-        depatrmentList.addDepartment(d1);
-        depatrmentList.addDepartment(d2);
-        depatrmentList.addDepartment(d3);
-        depatrmentList.addDepartment(d4);
+            int choice = readInt();
 
+            if (choice == 1) {
+                departmentManager.viewAllDepartments();
+            }
+
+            else if (choice == 2) {
+                System.out.println("Enter department name:");
+                String name = scnr.nextLine();
+
+                Department department = departmentManager.searchDepartment(name);
+
+                if (department == null) {
+                    System.out.println("Department not found");
+                } else {
+                    System.out.println("Department " + department.getDepartmentName()+" was founded");
+                }
+            }
+
+            else if (choice == 3) {
+                System.out.println("Enter department name:");
+                String name = scnr.nextLine();
+                departmentManager.showDepartmentDetails(name);
+            }
+
+            else if (choice == 4) {
+                return;
+            }
+
+            else {
+                System.out.println("Invalid choice");
+            }
+        }
+    }
+
+    private int readInt() {
+        int input = scnr.nextInt();
+        scnr.nextLine();
+        return input;
     }
 }

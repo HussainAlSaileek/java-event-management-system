@@ -37,6 +37,13 @@ public class VenueManager {
         }
     }
 
+    public void viewAllTypesOfVenues(){
+        System.out.println("SportsArea");
+        System.out.println("LectureHall");
+        System.out.println("ConferenceHall");
+        System.out.println("PublicSpace");
+    }
+
     public Venue searchVenue(String name){
 
         for (Venue venue : venues) {
@@ -57,22 +64,6 @@ public class VenueManager {
             System.out.println("venue not found");
         }
 
-        }
-
-        public boolean checkAttendanceValidation(int attendance,Venue venue){
-        if (attendance<=venue.getMaxCapacity()) {
-            if (searchVenue(venue.getVenueName()) != null) {
-                System.out.println("valid attendance");
-                return true;
-            } else {
-                System.out.println("Invalid attendance");
-                return false;
-            }
-        }
-        else {
-                System.out.println("venue not found" );
-                return false;
-            }
         }
 
     public int checkMaxCapacity(){
@@ -185,12 +176,4 @@ public class VenueManager {
 
 
 
-
-
 }
-
-
-
-
-
-

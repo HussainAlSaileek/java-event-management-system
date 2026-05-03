@@ -3,7 +3,8 @@
     public class DepartmentManager {
         private ArrayList<Department> departments = new ArrayList<>();
 
-        public boolean departmentExists(String name) {
+
+        public boolean isDepartmentExists(String name) {
             for (Department department : departments) {
                 if (department.getDepartmentName().equals(name)) {
                     return true;
@@ -12,8 +13,9 @@
             return false;
         }
 
+        //add Department to the list of departments  //
         public void addDepartment(Department department) {
-            if (departmentExists(department.getDepartmentName())==false) {
+            if (isDepartmentExists(department.getDepartmentName())==false) {
                 departments.add(department);
             } else {
                 System.out.println("Department already exists.");
@@ -38,7 +40,7 @@
             }
             return null;
         }
-
+            //print department information //
         public void showDepartmentDetails(String name) {
             Department department = searchDepartment(name);
 

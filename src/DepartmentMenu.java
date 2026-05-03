@@ -9,7 +9,7 @@ public class DepartmentMenu {
         this.departmentManager = departmentManager;
         this.scnr = scnr;
     }
-
+    //make default departments and the responsible people for them //
     public void setDepartmentList() {
         ResponsiblePerson person1 = new ResponsiblePerson("Dr.Ahmed", "ahmed@university.edu");
         ResponsiblePerson person2 = new ResponsiblePerson("Dr.Salem", "salem@university.edu");
@@ -37,7 +37,7 @@ public class DepartmentMenu {
             }
 
             else if (choice == 2) {
-                System.out.println("Enter department name:");
+                System.out.println("Enter department name: ");
                 String name = scnr.nextLine();
 
                 Department department = departmentManager.searchDepartment(name);
@@ -45,7 +45,7 @@ public class DepartmentMenu {
                 if (department == null) {
                     System.out.println("Department not found");
                 } else {
-                    System.out.println("Department " + department.getDepartmentName()+" was founded");
+                    System.out.println("Department " + department.getDepartmentName()+" was found");
                 }
             }
 

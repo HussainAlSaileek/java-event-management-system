@@ -10,12 +10,12 @@ public class Main {
         EventManager eventManager = new EventManager(venueManager);
         DepartmentManager departmentManager = new DepartmentManager();
 
-        // Menus (user interaction)
+        // Menus (to interact with the user)
         VenueMenu venueMenu = new VenueMenu(venueManager, scnr);
         EventMenu eventMenu = new EventMenu(eventManager, venueManager, departmentManager, scnr);
         DepartmentMenu departmentMenu = new DepartmentMenu(departmentManager, scnr);
 
-        // Initialize default data
+        // create default data
         venueMenu.setVenueList();
         departmentMenu.setDepartmentList();
 

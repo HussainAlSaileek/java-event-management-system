@@ -37,6 +37,7 @@ public class VenueManager {
         }
     }
 
+    //print all provided venues//
     public void viewAllTypesOfVenues(){
         System.out.println("SportsArea");
         System.out.println("LectureHall");
@@ -44,6 +45,7 @@ public class VenueManager {
         System.out.println("PublicSpace");
     }
 
+    // search for specific venue in the venueList //
     public Venue searchVenue(String name){
 
         for (Venue venue : venues) {
@@ -65,7 +67,7 @@ public class VenueManager {
         }
 
         }
-
+        // set the maximum venue in the venueList//
     public int checkMaxCapacity(){
         int max=0;
         for (Venue venue : venues) {
@@ -78,11 +80,8 @@ public class VenueManager {
 
     public boolean isVenueFree(Venue venue, LocalDateTime start, LocalDateTime end, ArrayList<Event> events) {
         for (Event event : events) {
-            boolean sameVenue = event.getVenue().getVenueName()
-                    .equalsIgnoreCase(venue.getVenueName());
-
-            boolean overlaps = start.isBefore(event.getEndDateTime())
-                    && end.isAfter(event.getStartDateTime());
+            boolean sameVenue = event.getVenue().getVenueName().equalsIgnoreCase(venue.getVenueName());
+            boolean overlaps = start.isBefore(event.getEndDateTime()) && end.isAfter(event.getStartDateTime());
 
             if (sameVenue && overlaps) {
                 return false;
@@ -90,7 +89,7 @@ public class VenueManager {
         }
         return true;
     }
-
+    //to find free venue at specific time//
     public ArrayList<Venue> getAvailableVenues(LocalDateTime start,
                                                LocalDateTime end,
                                                int neededCapacity,
@@ -100,6 +99,7 @@ public class VenueManager {
 
         for (Venue venue : venues) {
             if (!isVenueCompatible(eventType, venue)) {
+                //skip//
                 continue;
             }
 
@@ -114,7 +114,7 @@ public class VenueManager {
 
         return availableVenues;
     }
-
+        // to check if the venue matches with the event//
     public boolean isVenueCompatible(String eventType, Venue venue) {
         String type = eventType.toLowerCase();
         String venueType = venue.getVenueType().toLowerCase();
@@ -164,9 +164,7 @@ public class VenueManager {
                 continue;
             }
 
-            if (isVenueFree(venue, start, end, events)
-                    && venue.getMaxCapacity() > maxCapacity) {
-
+            if (isVenueFree(venue, start, end, events) && venue.getMaxCapacity() > maxCapacity) {
                 maxCapacity = venue.getMaxCapacity();
             }
         }

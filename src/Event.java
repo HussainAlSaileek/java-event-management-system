@@ -49,8 +49,11 @@ public abstract class Event {
     // General print method to be overridden by children
     public void printDetails() {
         System.out.println("Name: " + eventName);
+        System.out.println("Type: " + eventType);
         System.out.println("Sponsoring department: " + sponsorDepartment.getDepartmentName());
         System.out.println("Venue: " + venue.getVenueName());
-        System.out.println("Time: " + startDateTime);
+        System.out.println("Start time: " + startDateTime);
+        System.out.println("End time: " + endDateTime);
+        System.out.println("Needed capacity: " + neededCapacity);
     }
 }

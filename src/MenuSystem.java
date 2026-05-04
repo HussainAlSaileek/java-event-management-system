@@ -16,11 +16,14 @@ public class MenuSystem {
 
     public void start() {
         while (true) {
-            System.out.println("\nMain Menu");
+            System.out.println("\n==============================");
+            System.out.println("        MAIN MENU");
+            System.out.println("==============================");
             System.out.println("1. Event Menu");
             System.out.println("2. Venue Menu");
             System.out.println("3. Department Menu");
             System.out.println("4. Exit");
+            System.out.print("Enter choice: ");
 
             int choice = readInt();
 
@@ -48,8 +51,12 @@ public class MenuSystem {
     }
 
     private int readInt() {
-        int input = scnr.nextInt();
-        scnr.nextLine();
-        return input;
+        while (true) {
+            try {
+                return Integer.parseInt(scnr.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
     }
 }

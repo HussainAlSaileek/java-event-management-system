@@ -6,7 +6,7 @@
 
         public boolean isDepartmentExists(String name) {
             for (Department department : departments) {
-                if (department.getDepartmentName().equals(name)) {
+                if (department.getDepartmentName().equalsIgnoreCase(name)) {
                     return true;
                 }
             }

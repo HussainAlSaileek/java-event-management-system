@@ -35,7 +35,7 @@ public class DepartmentMenu {
             System.out.println("2. View All Departments");
             System.out.println("3. Search Department");
             System.out.println("4. Show Department Details");
-            System.out.println("5. Back");
+            System.out.println("5. Back to Main Menu");
             System.out.print("Enter choice: ");
 
             int choice = readInt();

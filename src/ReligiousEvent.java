@@ -9,14 +9,12 @@ public class ReligiousEvent extends Event {
         this.speakerName = speakerName;
     }
 
+    // Getter for possible future use
     public String getSpeakerName() {
         return speakerName;
     }
 
-    public void setSpeakerName(String speakerName) {
-        this.speakerName = speakerName;
-    }
-
+    // Overriding parent method to include new field
     @Override
     public void printDetails() {
         super.printDetails();

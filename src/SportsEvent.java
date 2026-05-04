@@ -9,14 +9,12 @@ private String sportName;
         this.sportName = sportName;
     }
 
+    // Getter for possible future use
     public String getSportName() {
         return sportName;
     }
 
-    public void setSportName(String sportName) {
-        this.sportName = sportName;
-    }
-
+    // Overriding parent method to include new field
     @Override
     public void printDetails() {
         super.printDetails();

@@ -103,7 +103,7 @@ public class EventMenu {
                 eventType = "Sport";
             }
 
-            System.out.println("Enter the event name");
+            System.out.println("Enter the event name: ");
             String eventName = scnr.nextLine();
 
             LocalDateTime[] dateTimes = getStartAndEndDateTime();
@@ -113,9 +113,9 @@ public class EventMenu {
 
             int capacity = getCapacity();
 
-            ArrayList<Venue> venues = eventManager.getAvailableVenues(startDateTime, endDateTime, capacity, eventType, venueManager.getVenues());
+            ArrayList<Venue> venues = venueManager.getAvailableVenues(startDateTime, endDateTime, capacity, eventType,  eventManager.getEvents());
             while (venues.isEmpty()) {
-                int maxCapacityByTime = eventManager.maxCapacityByTime(startDateTime, endDateTime, eventType, venueManager.getVenues());
+                int maxCapacityByTime = venueManager.maxCapacityByTime(startDateTime, endDateTime, eventType, eventManager.getEvents());
                 if (maxCapacityByTime > 0) {
                     System.out.println("Maximum allowed Capacity at this time: " + maxCapacityByTime);
                     System.out.println("1. Change the capacity");
@@ -148,7 +148,7 @@ public class EventMenu {
                     endDateTime = dateTimes[1];
 
                 }
-                venues = eventManager.getAvailableVenues(startDateTime, endDateTime, capacity, eventType, venueManager.getVenues());
+                venues = venueManager.getAvailableVenues(startDateTime, endDateTime, capacity, eventType, eventManager.getEvents());
             }
             Venue venue = selectVenue(venues);
 
@@ -315,7 +315,7 @@ public class EventMenu {
         return toDateTime(date + " " + time);
     }
 
-    /* FIXME: checkMaxCapacity needs implementation */
+
     private int getCapacity() {
         int capacity;
         while (true) {

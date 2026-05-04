@@ -11,5 +11,6 @@ public class PublicSpace extends Venue{
 
     @Override
     public void printDetails(){
+        super.printDetails();
     }
 }

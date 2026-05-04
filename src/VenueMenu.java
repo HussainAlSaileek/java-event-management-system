@@ -115,7 +115,19 @@ public class VenueMenu {
             return;
         }
 
-        int maxCapacity = readPositiveInt("Enter maximum capacity: ");
+        System.out.println("Enter maximum capacity: ");
+        int maxCapacity;
+        while (true) {
+            maxCapacity = readInt();
+            if (maxCapacity > 0) {
+                break;
+            }
+            else {
+                System.out.println("Capacity must be positive.");
+            }
+        }
+
+
 
         Venue venue;
 
@@ -139,19 +151,6 @@ public class VenueMenu {
 
         venueManager.addVenue(venue);
         System.out.println("Venue added successfully.");
-    }
-
-    private int readPositiveInt(String message) {
-        while (true) {
-            System.out.print(message);
-            int value = readInt();
-
-            if (value > 0) {
-                return value;
-            }
-
-            System.out.println("Invalid input. Number must be greater than 0.");
-        }
     }
 
     private boolean askYesNo(String message) {

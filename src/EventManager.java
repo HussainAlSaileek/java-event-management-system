@@ -19,8 +19,8 @@ public class EventManager {
     }
 
 
-
-
+    // method to add events, made to be boolean to provide info of status of operation
+    // validation in this method is not used but implemented for safety
     public boolean addEvent(Event newEvent) {
         if (!newEvent.getEndDateTime().isAfter(newEvent.getStartDateTime())) {
             System.out.println("Error: Start time must be before end time");
@@ -47,7 +47,7 @@ public class EventManager {
         return true;
     }
 
-
+    // Find corresponding event by name
     public Event findEvent(String eventToFind) {
         for (Event event : events) {
             if (event.getEventName().equalsIgnoreCase(eventToFind)) {
@@ -57,6 +57,7 @@ public class EventManager {
         return null;
     }
 
+    // Delete event by name
     public boolean deleteEvent(String eventName) {
         Event eventToDelete = findEvent(eventName);
 
@@ -70,6 +71,7 @@ public class EventManager {
         return true;
     }
 
+    // Prints the details of all events
     public void viewAllEvents() {
         if (events.isEmpty()) {
             System.out.println("No events found.");
@@ -82,16 +84,7 @@ public class EventManager {
         }
     }
 
-    public void viewEventDetails(String eventName) {
-        Event event = findEvent(eventName);
-
-        if (event == null) {
-            System.out.println("Event not found.");
-        } else {
-            event.printDetails();
-        }
-    }
-
+    // Prints the details of all events of type X
     public void viewEventsByType(String eventType) {
         boolean found = false;
 

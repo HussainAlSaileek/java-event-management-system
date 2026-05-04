@@ -9,10 +9,12 @@ public class SocialEvent extends Event {
         this.club = club;
     }
 
-    public void setClub(String club) {
-        this.club = club;
+    // Getter for possible future use
+    public String getClub() {
+        return club;
     }
 
+    // Overriding parent method to include new field
     @Override
     public void printDetails() {
         super.printDetails();

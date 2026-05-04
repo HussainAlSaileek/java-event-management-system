@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class EventMenu {
 
+    // Needed managers to use data
     private final EventManager eventManager;
     private final VenueManager venueManager;
     private final DepartmentManager departmentManager;
     private final Scanner scnr;
 
+    // Initialization
     public EventMenu(EventManager eventManager, VenueManager venueManager, DepartmentManager departmentManager, Scanner scnr) {
         this.eventManager = eventManager;
         this.venueManager = venueManager;
@@ -17,6 +19,7 @@ public class EventMenu {
         this.scnr = scnr;
     }
 
+    // First method to start using the event menu
     public void start() {
 
         System.out.println("Event Menu (Select From 1-6)");
@@ -63,10 +66,11 @@ public class EventMenu {
 
     }
 
+    // Adds events, longest method
     public void addEvent() {
 
-
-
+        // Complete loop, user starts here and returns here after a
+        // successful operation or by command
         while (true) {
             System.out.println("Select event type by number");
             System.out.println("1. Academic Event");
@@ -106,16 +110,22 @@ public class EventMenu {
             System.out.println("Enter the event name: ");
             String eventName = scnr.nextLine();
 
+            // Time input by getStartAndEndDateTime() which returns a list of
+            // [startDateTime, endDateTime]
             LocalDateTime[] dateTimes = getStartAndEndDateTime();
             LocalDateTime startDateTime = dateTimes[0];
             LocalDateTime endDateTime = dateTimes[1];
 
-
+            // Capacity input
             int capacity = getCapacity();
 
+            // Venue input, filters the venue options by time and capacity entered, loops
+            // until the user successfully chooses a venue or cancels the event
             ArrayList<Venue> venues = venueManager.getAvailableVenues(startDateTime, endDateTime, capacity, eventType,  eventManager.getEvents());
             while (venues.isEmpty()) {
+
                 int maxCapacityByTime = venueManager.maxCapacityByTime(startDateTime, endDateTime, eventType, eventManager.getEvents());
+
                 if (maxCapacityByTime > 0) {
                     System.out.println("Maximum allowed Capacity at this time: " + maxCapacityByTime);
                     System.out.println("1. Change The Capacity");
@@ -150,8 +160,10 @@ public class EventMenu {
                 }
                 venues = venueManager.getAvailableVenues(startDateTime, endDateTime, capacity, eventType, eventManager.getEvents());
             }
+            // Final venue input, options of possible venues to choose from here
             Venue venue = selectVenue(venues);
 
+            // Department input
             System.out.println("Enter the sponsoring department name");
             departmentManager.viewAllDepartments();
             String departmentName = scnr.nextLine();
@@ -160,12 +172,9 @@ public class EventMenu {
                 departmentManager.viewAllDepartments();
                 departmentName = scnr.nextLine();
             }
-
             Department department = departmentManager.searchDepartment(departmentName);
 
-
-
-
+            // Finally adding event, asks additional input depending on type
             if (choice == 1) {
 
                 System.out.println("Enter the instructor's name");
@@ -208,8 +217,7 @@ public class EventMenu {
 
     }
 
-
-
+    // deletes events by name, loops until the user cancels
     public void deleteEvent() {
 
         while (true) {
@@ -247,6 +255,7 @@ public class EventMenu {
 
     }
 
+    // Searches events by name and prints their details until user cancels
     public void searchEvent() {
 
         while (true) {
@@ -280,11 +289,9 @@ public class EventMenu {
                 return;
             }
         }
-
-
-
     }
 
+    // Prints the details of all events of type X looping until user cancels
     public void viewEventsByType() {
 
         while (true) {
@@ -305,6 +312,8 @@ public class EventMenu {
         }
     }
 
+    // HELPER METHODS
+    // Gets the date and time, uses 'label' to differentiate between start and end
     private LocalDateTime getDateTime(String label) {
         System.out.println("Enter the " + label + " date of the event (yyyy-MM-dd):");
         String date = scnr.nextLine();
@@ -315,7 +324,45 @@ public class EventMenu {
         return toDateTime(date + " " + time);
     }
 
+    // Helper method to validate input of user and converts the
+    // input from string to localdatetime type
+    private LocalDateTime toDateTime(String dateTime) {
+        // decides format of the string to convert from
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime newDateTime;
 
+        // loops until the user inputs time in the correct format and
+        // checks if it's not in the past
+        while (true) {
+            try {
+                newDateTime = LocalDateTime.parse(dateTime, formatter);
+                if (newDateTime.isBefore(LocalDateTime.now())) {
+                    System.out.println("Invalid date and time, the event can not be in the past");
+                    System.out.println("Please try again, enter the date: ");
+                    String date =  scnr.nextLine();
+                    System.out.println("enter a time");
+                    String time = scnr.nextLine();
+                    dateTime = date + " " + time;
+                    continue;
+                }
+            }
+            // DateTimeParseException is thrown when the date is not a real date
+            // and when the format in user input is incorrect
+            catch (DateTimeParseException e) {
+                System.out.println("Invalid date and time");
+                System.out.println("Please try again, enter a date (yyyy-MM-dd)");
+                String date =  scnr.nextLine();
+                System.out.println("enter a time (HH:mm)");
+                String time = scnr.nextLine();
+                dateTime = date + " " + time;
+                continue;
+            }
+            return newDateTime;
+        }
+    }
+
+    // Helper method to take initial capacity, only validates if capacity input is lower than
+    // max venue capacity and more than 0
     private int getCapacity() {
         int capacity;
         while (true) {
@@ -330,37 +377,9 @@ public class EventMenu {
         }
         return capacity;
     }
-    private LocalDateTime toDateTime(String dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime newDateTime;
-        while (true) {
-            try {
-                newDateTime = LocalDateTime.parse(dateTime, formatter);
-                if (newDateTime.isBefore(LocalDateTime.now())) {
-                    System.out.println("Invalid date and time, the event can not be in the past");
-                    System.out.println("Please try again, enter the date: ");
-                    String date =  scnr.nextLine();
-                    System.out.println("enter a time");
-                    String time = scnr.nextLine();
-                    dateTime = date + " " + time;
-                    continue;
-                }
-            }
-            catch (DateTimeParseException e) {
-                System.out.println("Invalid date and time");
-                System.out.println("Please try again, enter a date (yyyy-MM-dd)");
-                String date =  scnr.nextLine();
-                System.out.println("enter a time (HH:mm)");
-                String time = scnr.nextLine();
-                dateTime = date + " " + time;
-                continue;
-            }
-            return newDateTime;
-        }
 
-
-    }
-
+    // Helper method to select venue by taking the list of available venues then
+    // prompting user to choose from them
     private Venue selectVenue(ArrayList<Venue> venues) {
         int choice;
         if (venues.isEmpty()) {
@@ -373,8 +392,6 @@ public class EventMenu {
             }
             System.out.print(i+1);
             System.out.println(". " + venues.get(i).getVenueName());
-
-
         }
         while (true) {
             choice = readInt();
@@ -385,12 +402,10 @@ public class EventMenu {
                 return venues.get(choice-1);
             }
         }
-
-
-
-
     }
 
+    // Helper method to return a list of [startDateTime, endDateTime] after validation
+    // if the start is before end, uses getDateTime to prompt the user for input
     private LocalDateTime[] getStartAndEndDateTime(){
         LocalDateTime startDateTime;
         LocalDateTime endDateTime;
@@ -408,6 +423,7 @@ public class EventMenu {
         }
     }
 
+    // Helper method for repeated yes or no prompt for user
     private boolean askYesNo(String message) {
         while (true) {
             System.out.println(message);
@@ -428,6 +444,7 @@ public class EventMenu {
         }
     }
 
+    // cleans int input from scanner to deal with leftover input from user
     private int readInt() {
         int input = scnr.nextInt();
         scnr.nextLine();

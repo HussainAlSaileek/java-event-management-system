@@ -1,6 +1,8 @@
 import java.time.LocalDateTime;
 
 public abstract class Event {
+
+    // General fields every child from Event class will need
     protected String eventName;
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
@@ -10,7 +12,7 @@ public abstract class Event {
     protected String eventType;
 
 
-
+    // General constructor to be called by super by children
     public Event(String eventName, LocalDateTime startDateTime, LocalDateTime endDateTime, Venue venue, Department sponsorDepartment, int neededCapacity, String eventType) {
         this.endDateTime = endDateTime;
         this.eventName = eventName;
@@ -21,6 +23,7 @@ public abstract class Event {
         this.eventType = eventType;
     }
 
+    // Getters for every field, unused methods are kept for possible future use
     public String getEventName() {
         return eventName;
     }
@@ -43,18 +46,7 @@ public abstract class Event {
         return eventType;
     }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
-    }
-
-    public boolean checkOverlap(Event other) {
-        if (this.startDateTime.isBefore(other.endDateTime)
-                && this.endDateTime.isAfter(other.startDateTime)) {
-        return true;}
-        else {return false;}
-    }
-
-
+    // General print method to be overridden by children
     public void printDetails() {
         System.out.println("Name: " + eventName);
         System.out.println("Sponsoring department: " + sponsorDepartment.getDepartmentName());

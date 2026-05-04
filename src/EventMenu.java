@@ -26,12 +26,16 @@ public class EventMenu {
 
         while (true) {
 
+            System.out.println("\n==============================");
+            System.out.println("        EVENT MENU");
+            System.out.println("==============================");
             System.out.println("1. Add Event");
             System.out.println("2. Delete Event");
             System.out.println("3. Search Event");
             System.out.println("4. View All Events");
             System.out.println("5. View Events by Type");
             System.out.println("6. Back");
+            System.out.print("Enter choice: ");
 
             int choice = readInt();
 
@@ -72,7 +76,7 @@ public class EventMenu {
         // Complete loop, user starts here and returns here after a
         // successful operation or by command
         while (true) {
-            System.out.println("Select event type by number");
+            System.out.println("Select event type by number:");
             System.out.println("1. Academic Event");
             System.out.println("2. Religious Event");
             System.out.println("3. Social Event");
@@ -164,7 +168,7 @@ public class EventMenu {
             Venue venue = selectVenue(venues);
 
             // Department input
-            System.out.println("Enter the sponsoring department name");
+            System.out.println("Enter the sponsoring department name: ");
             departmentManager.viewAllDepartments();
             String departmentName = scnr.nextLine();
             while (departmentManager.searchDepartment(departmentName) == null) {
@@ -177,7 +181,7 @@ public class EventMenu {
             // Finally adding event, asks additional input depending on type
             if (choice == 1) {
 
-                System.out.println("Enter the instructor's name");
+                System.out.println("Enter the instructor's name: ");
                 String instructorName = scnr.nextLine();
                 AcademicEvent event = new AcademicEvent(eventName, startDateTime, endDateTime, venue, department, capacity, eventType, instructorName);
                 eventManager.addEvent(event);
@@ -185,7 +189,7 @@ public class EventMenu {
 
             else if (choice == 2) {
 
-                System.out.println("Enter the speaker's name");
+                System.out.println("Enter the speaker's name: ");
                 String speakerName = scnr.nextLine();
                 ReligiousEvent event = new ReligiousEvent(eventName, startDateTime, endDateTime, venue, department, capacity, eventType, speakerName);
                 eventManager.addEvent(event);
@@ -193,7 +197,7 @@ public class EventMenu {
 
             else if (choice == 3) {
 
-                System.out.println("Enter the event's club");
+                System.out.println("Enter the event's club: ");
                 String club = scnr.nextLine();
                 SocialEvent event = new SocialEvent(eventName, startDateTime, endDateTime, venue, department, capacity, eventType, club);
                 eventManager.addEvent(event);
@@ -201,7 +205,7 @@ public class EventMenu {
 
             else {
 
-                System.out.println("Enter the sport name");
+                System.out.println("Enter the sport name: ");
                 String sportName = scnr.nextLine();
                 SportsEvent event = new SportsEvent(eventName, startDateTime, endDateTime, venue, department, capacity, eventType, sportName);
                 eventManager.addEvent(event);
@@ -227,7 +231,7 @@ public class EventMenu {
             boolean condition = eventManager.deleteEvent(eventToDelete);
 
             if (!condition) {
-                System.out.println("Event does not exist (choose number):");
+                System.out.println("Event does not exist (choose number): ");
                 System.out.println("1. Try Again");
                 System.out.println("2. Cancel");
                 int choice = readInt();
@@ -260,7 +264,7 @@ public class EventMenu {
 
         while (true) {
 
-            System.out.println("Enter the event's name to be searched:");
+            System.out.println("Enter the event's name to be searched: ");
             String eventToSearch = scnr.nextLine();
             Event event = eventManager.findEvent(eventToSearch);
 
@@ -268,6 +272,7 @@ public class EventMenu {
                 System.out.println("Event does not exist");
                 System.out.println("1. Try Again");
                 System.out.println("2. Cancel");
+                System.out.print("Enter choice: ");
                 int choice = readInt();
                 if (choice == 1) {
                     continue;
@@ -298,7 +303,7 @@ public class EventMenu {
 
             System.out.println("Event types: ");
             System.out.println("Academic/Religious/Social/Sport");
-            System.out.println("Enter the type of event to be viewed by (name):");
+            System.out.println("Enter the type of event to be viewed by (name): ");
             String eventType = scnr.nextLine();
 
             eventManager.viewEventsByType(eventType);
@@ -315,10 +320,10 @@ public class EventMenu {
     // HELPER METHODS
     // Gets the date and time, uses 'label' to differentiate between start and end
     private LocalDateTime getDateTime(String label) {
-        System.out.println("Enter the " + label + " date of the event (yyyy-MM-dd):");
+        System.out.println("Enter the " + label + " date of the event (yyyy-MM-dd): ");
         String date = scnr.nextLine();
 
-        System.out.println("Enter the " + label + " time of the event (HH:mm):");
+        System.out.println("Enter the " + label + " time of the event (HH:mm): ");
         String time = scnr.nextLine();
 
         return toDateTime(date + " " + time);
@@ -338,9 +343,9 @@ public class EventMenu {
                 newDateTime = LocalDateTime.parse(dateTime, formatter);
                 if (newDateTime.isBefore(LocalDateTime.now())) {
                     System.out.println("Invalid date and time, the event can not be in the past");
-                    System.out.println("Please try again, enter the date: ");
+                    System.out.println("Please try again, enter the date (yyyy-MM-dd): ");
                     String date =  scnr.nextLine();
-                    System.out.println("enter a time");
+                    System.out.println("enter a time(HH:mm): ");
                     String time = scnr.nextLine();
                     dateTime = date + " " + time;
                     continue;
@@ -366,7 +371,7 @@ public class EventMenu {
     private int getCapacity() {
         int capacity;
         while (true) {
-            System.out.println("Enter needed capacity for the event");
+            System.out.println("Enter needed capacity for the event: ");
             System.out.println("Global maximum allowed capacity: " + venueManager.checkMaxCapacity());
             capacity = readInt();
             if (capacity < 1 || capacity > venueManager.checkMaxCapacity()) {
@@ -388,7 +393,7 @@ public class EventMenu {
         }
         for (int i = 0; i < venues.size(); i++) {
             if (i == 0) {
-                System.out.println("Select Venue");
+                System.out.println("Select Venue: ");
             }
             System.out.print(i+1);
             System.out.println(". " + venues.get(i).getVenueName());
@@ -429,6 +434,7 @@ public class EventMenu {
             System.out.println(message);
             System.out.println("1. Yes");
             System.out.println("2. No");
+            System.out.print("Enter choice: ");
 
             int choice = readInt();
 
@@ -444,11 +450,16 @@ public class EventMenu {
         }
     }
 
-    // cleans int input from scanner to deal with leftover input from user
+    // cleans int input from scanner to deal with leftover input from user, validates input
     private int readInt() {
-        int input = scnr.nextInt();
-        scnr.nextLine();
-        return input;
+        while (true) {
+            try {
+                int input = Integer.parseInt(scnr.nextLine());
+                return input;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
     }
 
 }

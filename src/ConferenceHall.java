@@ -22,7 +22,7 @@ public class ConferenceHall extends Venue{
     @Override
     public void printDetails(){
         super.printDetails();
-        System.out.println("hasSmartBoard: " +gethasSoundSystem());
+        System.out.println("Has sound system: " +gethasSoundSystem());
 
     }
 }

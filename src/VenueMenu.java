@@ -47,7 +47,7 @@ public class VenueMenu {
             System.out.println("3. View All Venues");
             System.out.println("4. Search Venue");
             System.out.println("5. Show Venue Details");
-            System.out.println("6. Back");
+            System.out.println("6. Back to Main Menu");
             System.out.print("Enter choice: ");
 
             int choice = readInt();
@@ -93,7 +93,7 @@ public class VenueMenu {
         System.out.println("2. Lecture Hall");
         System.out.println("3. Conference Hall");
         System.out.println("4. Public Space");
-        System.out.println("5. Cancel");
+        System.out.println("5. Back to Venue Menu");
         System.out.print("Enter choice: ");
 
         int choice = readInt();

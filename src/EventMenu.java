@@ -34,7 +34,7 @@ public class EventMenu {
             System.out.println("3. Search Event");
             System.out.println("4. View All Events");
             System.out.println("5. View Events by Type");
-            System.out.println("6. Back");
+            System.out.println("6. Back to Main Menu");
             System.out.print("Enter choice: ");
 
             int choice = readInt();
@@ -81,7 +81,7 @@ public class EventMenu {
             System.out.println("2. Religious Event");
             System.out.println("3. Social Event");
             System.out.println("4. Sports Event");
-            System.out.println("5. Back");
+            System.out.println("5. Back to Event Menu");
 
             int choice = readInt();
 

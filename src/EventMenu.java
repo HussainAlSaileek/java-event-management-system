@@ -118,9 +118,9 @@ public class EventMenu {
                 int maxCapacityByTime = venueManager.maxCapacityByTime(startDateTime, endDateTime, eventType, eventManager.getEvents());
                 if (maxCapacityByTime > 0) {
                     System.out.println("Maximum allowed Capacity at this time: " + maxCapacityByTime);
-                    System.out.println("1. Change the capacity");
-                    System.out.println("2. Change the time");
-                    System.out.println("3. Cancel the event");
+                    System.out.println("1. Change The Capacity");
+                    System.out.println("2. Change The Time");
+                    System.out.println("3. Cancel The Event");
 
                     int changeChoice = readInt();
                     if (changeChoice == 1) {
@@ -220,7 +220,7 @@ public class EventMenu {
 
             if (!condition) {
                 System.out.println("Event does not exist (choose number):");
-                System.out.println("1. Try again");
+                System.out.println("1. Try Again");
                 System.out.println("2. Cancel");
                 int choice = readInt();
                 if (choice == 1) {
@@ -257,7 +257,7 @@ public class EventMenu {
 
             if (event == null) {
                 System.out.println("Event does not exist");
-                System.out.println("1. Try again");
+                System.out.println("1. Try Again");
                 System.out.println("2. Cancel");
                 int choice = readInt();
                 if (choice == 1) {
@@ -320,7 +320,7 @@ public class EventMenu {
         int capacity;
         while (true) {
             System.out.println("Enter needed capacity for the event");
-            System.out.println("Maximum allowed Capacity: " + venueManager.checkMaxCapacity());
+            System.out.println("Global maximum allowed capacity: " + venueManager.checkMaxCapacity());
             capacity = readInt();
             if (capacity < 1 || capacity > venueManager.checkMaxCapacity()) {
                 System.out.println("Invalid capacity");
@@ -332,19 +332,30 @@ public class EventMenu {
     }
     private LocalDateTime toDateTime(String dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
+        LocalDateTime newDateTime;
         while (true) {
             try {
-                return LocalDateTime.parse(dateTime, formatter);
+                newDateTime = LocalDateTime.parse(dateTime, formatter);
+                if (newDateTime.isBefore(LocalDateTime.now())) {
+                    System.out.println("Invalid date and time, the event can not be in the past");
+                    System.out.println("Please try again, enter the date: ");
+                    String date =  scnr.nextLine();
+                    System.out.println("enter a time");
+                    String time = scnr.nextLine();
+                    dateTime = date + " " + time;
+                    continue;
+                }
             }
             catch (DateTimeParseException e) {
                 System.out.println("Invalid date and time");
-                System.out.println("Please try again, enter a date");
+                System.out.println("Please try again, enter a date (yyyy-MM-dd)");
                 String date =  scnr.nextLine();
-                System.out.println("enter a time");
+                System.out.println("enter a time (HH:mm)");
                 String time = scnr.nextLine();
                 dateTime = date + " " + time;
+                continue;
             }
+            return newDateTime;
         }
 
 
@@ -384,13 +395,13 @@ public class EventMenu {
         LocalDateTime startDateTime;
         LocalDateTime endDateTime;
         while (true) {
+
             startDateTime = getDateTime("start");
-
-
             endDateTime = getDateTime("end");
 
             if (!endDateTime.isAfter(startDateTime)) {
                 System.out.println("Error: Start time must be before end time");
+                System.out.println("Please try again");
             } else {
                 return new LocalDateTime[]{startDateTime, endDateTime};
             }

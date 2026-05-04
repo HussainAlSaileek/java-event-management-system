@@ -12,11 +12,11 @@ public class VenueMenu {
 
 
     public void setVenueList() {
-        Venue v1=new SportsArea("feild 1",90,"Football");
-        Venue v2=new LectureHall("room:1001",120,true);
+        Venue v1=new SportsArea("Field 1",90,"Football");
+        Venue v2=new LectureHall("Room:1001",120,true);
         Venue v3=new ConferenceHall("Hall A",70,true);
-        Venue v4=new PublicSpace("the stadium",750);
-        Venue v5=new LectureHall("room:500",45,false);
+        Venue v4=new PublicSpace("The stadium",750);
+        Venue v5=new LectureHall("Room:500",45,false);
         venueManager.addVenue(v1);
         venueManager.addVenue(v2);
         venueManager.addVenue(v3);

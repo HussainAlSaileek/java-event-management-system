@@ -11,15 +11,19 @@ public class DepartmentMenu {
     }
     //make default departments and the responsible people for them //
     public void setDepartmentList() {
-        ResponsiblePerson person1 = new ResponsiblePerson("Dr.Ahmed", "ahmed@university.edu");
-        ResponsiblePerson person2 = new ResponsiblePerson("Dr.Salem", "salem@university.edu");
+        ResponsiblePerson person1 = new ResponsiblePerson("Dr.Shinwari", "shinwari@university.edu");
+        ResponsiblePerson person2 = new ResponsiblePerson("Dr.Ahmed", "ahmed@university.edu");
         ResponsiblePerson person3 = new ResponsiblePerson("Dr.Ali", "ali@university.edu");
         ResponsiblePerson person4 = new ResponsiblePerson("Dr.Salman", "salman@university.edu");
+        ResponsiblePerson person5 = new ResponsiblePerson("Dr.Mohammed", "Mohammed@university.edu");
+        ResponsiblePerson person6 = new ResponsiblePerson("Dr.Ali Alibeid", "aalibeid@university.edu");
 
-        departmentManager.addDepartment(new Department("Math", person1));
-        departmentManager.addDepartment(new Department("Physics", person2));
-        departmentManager.addDepartment(new Department("Coe", person3));
-        departmentManager.addDepartment(new Department("SWE", person4));
+        departmentManager.addDepartment(new Department("Coe", person1));
+        departmentManager.addDepartment(new Department("ICS", person2));
+        departmentManager.addDepartment(new Department("Math", person3));
+        departmentManager.addDepartment(new Department("Physics", person4));
+        departmentManager.addDepartment(new Department("SWE", person5));
+        departmentManager.addDepartment(new Department("Physical Education", person6));
     }
 
     public void start() {

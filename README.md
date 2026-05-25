@@ -1,5 +1,3 @@
-# java-event-management-system
-
 # Event Management System
 
 A Java-based event management application developed for the ICS108 Object-Oriented Programming course at KFUPM.
@@ -63,3 +61,26 @@ This project was developed as a two-member team project for the ICS108 Object-Or
 - Collaborative development using Git and GitHub
 - Writing cleaner and more maintainable code
 
+## How to Run
+
+1. Clone the repository:
+
+- Run in terminal
+```bash
+git clone https://github.com/HussainAlSaileek/java-event-management-system.git
+```
+
+2. Open the project in your preferred Java IDE:
+- IntelliJ IDEA
+- VS Code
+- Eclipse
+
+3. Make sure Java is installed on your system.
+- Java version used during development: OpenJDK 22.0.2
+
+4. Run the `Main.java` file to start the application.
+
+## Authors
+
+- [Hussain AlSaileek](https://github.com/HussainAlSaileek)
+- [Alaa AlSaleh](https://github.com/Alaa0139)

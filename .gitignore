@@ -10,7 +10,7 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package files
 *.jar
 *.war
 *.nar
@@ -25,3 +25,7 @@ replay_pid*
 
 # Intellij file
 .idea/
+
+# Ignored folders
+out/
+build/
